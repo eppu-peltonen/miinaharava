@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 type StopwatchProps = {
     isRunning: boolean;
     gameReady: boolean;
+    time: number;
+    setTime: (time: number) => void;
 };
 
-const Stopwatch = ({isRunning, gameReady}: StopwatchProps) => {
-    const [time, setTime] = useState(0);
+const Stopwatch = ({isRunning, gameReady, time, setTime}: StopwatchProps) => {
     
     useEffect(() => {
         let intervalId: number;
@@ -14,18 +15,17 @@ const Stopwatch = ({isRunning, gameReady}: StopwatchProps) => {
             intervalId = setInterval(() => setTime(time + 1), 10)
         }
         return () => clearInterval(intervalId);
-    }, [isRunning, time])
+    }, [isRunning, time, setTime])
 
     useEffect(() => {
         if (gameReady) {
             setTime(0);
         }
-    }, [gameReady]);
+    }, [gameReady, setTime]);
 
     const hours = Math.floor(time / 360000);
     const minutes = Math.floor((time % 360000) / 6000);
     const seconds = Math.floor((time % 6000) / 100);
-    const milliseconds = time % 100;
 
     return (
         <button disabled className="w-20 bg-slate-500 rounded-lg shadow-lg">

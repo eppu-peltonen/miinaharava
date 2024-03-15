@@ -17,11 +17,15 @@ type Cell = {
 type BoardProps = {
     gameState: number;
     setGameState: (state: number) => void;
+    time: number;
+    setTime: (time: number) => void;
 }
 
 const Board = ({
         gameState,
-        setGameState
+        setGameState,
+        time,
+        setTime
     }: BoardProps) => {
 
         const ROWS = 9;
@@ -35,6 +39,7 @@ const Board = ({
     const startNewGame = () => {
         setGameState(GameState.READY);
         setFlags(MINES);
+        setCellsLeft(ROWS * COLS);
 
         const board = setupBoard();
         setCells(board);
@@ -137,10 +142,15 @@ const Board = ({
         if (gameState === 0) {
             setGameState(GameState.RUNNING);
         }
-        
+
         cell.isRevealed = true;
         setCellsLeft(prev => prev - 1);
 
+        const currentOpenCells = cellsLeft - 1;
+
+        if (currentOpenCells === MINES) {
+            setGameState(GameState.WIN);
+        }
 
         if (cell.isMine){
             setGameState(GameState.LOSE);
@@ -179,7 +189,12 @@ const Board = ({
                 >
                     <span className="text-white font-bold">Uusi peli</span>
                 </button>
-                <Stopwatch isRunning={gameState === 1} gameReady={gameState === 0} />
+                <Stopwatch
+                    isRunning={gameState === 1}
+                    gameReady={gameState === 0}
+                    time={time}
+                    setTime={setTime}
+                />
             </div>
             
             <div className="grid grid-cols-9 grid-rows-9">

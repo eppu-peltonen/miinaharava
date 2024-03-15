@@ -6,7 +6,7 @@ import { GameState } from "./enum/gameState";
 const App = () => {
 
     const [gameState, setGameState] = useState(GameState.READY);
-    const [time, setTime] = useState("");
+    const [time, setTime] = useState(0);
 
     return (
         <main className="bg-minefield bg-center bg-cover">
@@ -14,6 +14,8 @@ const App = () => {
                 <Board
                     gameState={gameState}
                     setGameState={setGameState}
+                    time={time}
+                    setTime={setTime}
                 />
                 {gameState === GameState.WIN &&
                     <Stats time={time} />
