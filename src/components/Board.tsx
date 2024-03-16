@@ -251,7 +251,19 @@ const Board = ({
                                     <img src={mine} alt="mine" />
                                 }
                                 {cell.isRevealed && !cell.isMine &&
-                                    cell.neighboringMines
+                                    <span className={
+                                        `font-bold text-2xl
+                                        ${cell.neighboringMines === 1 ? "text-sky-600"
+                                        : cell.neighboringMines === 2 ? "text-emerald-600"
+                                        : cell.neighboringMines === 3 ? "text-rose-600"
+                                        : cell.neighboringMines === 4 ? "text-sky-900"
+                                        : cell.neighboringMines === 5 ? "text-rose-900"
+                                        : cell.neighboringMines === 6 ? "text-teal-400"
+                                        : cell.neighboringMines === 7 ? "text-violet-900"
+                                        : "text-slate-900"}`
+                                    }>
+                                        {cell.neighboringMines === 0 ? "" : cell.neighboringMines}
+                                    </span>
                                 }
                                 {cell.isFlagged &&
                                     <img src={flagBlack} className="w-7 h-7" alt="flag" />
