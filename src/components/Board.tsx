@@ -158,6 +158,8 @@ const Board = ({
             return;
         }
 
+        expandEmptyCells(cell);
+
         setCells([...cells]);
     }
 
@@ -174,6 +176,43 @@ const Board = ({
         setFlags(cell.isFlagged ? flags - 1 : flags + 1);
 
         setCells([...cells]);
+    }
+
+    const expandEmptyCells = (cell: Cell) => {
+            
+        if (cell.neighboringMines === 0) {
+            const queue = [cell];
+            while (queue.length > 0) {
+                const currentCell = queue.pop();
+                if (!currentCell) {
+                    continue;
+                }
+                for (let i = -1; i <= 1; i++) {
+                    for (let j = -1; j <= 1; j++) {
+                        const neighborX = currentCell.x + i;
+                        const neighborY = currentCell.y + j;
+
+                        if ((neighborX < 0
+                            || neighborX >= COLS
+                            || neighborY < 0
+                            || neighborY >= ROWS)
+                            || (i === 0 && j === 0)
+                            ) {
+                            continue;
+                        }
+
+                        const neighbor = cells[neighborY][neighborX];
+                        if (!neighbor.isRevealed) {
+                            neighbor.isRevealed = true;
+                            setCellsLeft(prev => prev - 1);
+                            if (neighbor.neighboringMines === 0) {
+                                queue.push(neighbor);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     return (
