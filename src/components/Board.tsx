@@ -139,6 +139,10 @@ const Board = ({
 
     const handleCellClick = (cell: Cell) => {
 
+        if (cell.isFlagged){
+            return;
+        }
+
         if (gameState === 0) {
             setGameState(GameState.RUNNING);
         }
