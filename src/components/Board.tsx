@@ -220,7 +220,7 @@ const Board = ({
             <div className="flex flex-row place-content-between mb-6">
                 <div className="flex flex-row w-20 bg-slate-500 rounded-lg shadow-lg justify-center">
                     <img className="h-8 w-8" src={flagWhite} alt="flag" />
-                    <span className="text-xl text-white font-bold">{flags}</span>
+                    <span className="ml-2 text-xl text-white font-bold">{flags}</span>
                 </div>
                 <button
                     className="bg-slate-500 w-20 rounded-lg shadow-lg"
@@ -266,7 +266,7 @@ const Board = ({
                                     </span>
                                 }
                                 {cell.isFlagged &&
-                                    <img src={flagBlack} className="w-7 h-7" alt="flag" />
+                                    <img src={flagBlack} className="w-7 h-7 ml-1" alt="flag" />
                                 }
                             </button>
                         );
