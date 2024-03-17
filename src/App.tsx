@@ -1,25 +1,42 @@
 import { useState } from "react";
 import Board from "./components/Board";
 import Stats from "./components/Stats";
-import { GameState } from "./enum/gameState";
+import Status from "./components/Status";
+import { GameState, GameLevel } from "./enum";
 
 const App = () => {
 
     const [gameState, setGameState] = useState(GameState.READY);
     const [time, setTime] = useState(0);
+    const [gameLevel, setGameLevel] = useState(GameLevel.BEGINNER);
+    const [flags, setFlags] = useState(10);
+
+    const startNewGame = () => {
+        setGameState(GameState.READY);
+    }
 
     return (
         <main className="bg-minefield bg-center bg-cover">
-            <div className="container mx-auto h-screen flex flex-row">
-                <Board
-                    gameState={gameState}
-                    setGameState={setGameState}
-                    time={time}
-                    setTime={setTime}
-                />
+            <div className="container mx-auto h-screen flex">
+                <div className="m-auto bg-slate-700 rounded-xl flex flex-col p-6"> 
+                    <Status
+                        flags={flags}
+                        gameState={gameState}
+                        startNewGame={startNewGame}
+                        time={time}
+                        setTime={setTime}
+                    />
+                    <Board
+                        gameState={gameState}
+                        setGameState={setGameState}
+                        gameLevel={gameLevel}
+                        flags={flags}
+                        setFlags={setFlags}
+                    />
                 {gameState === GameState.WIN &&
                     <Stats time={time} />
                 }
+                </div>     
             </div>
         </main>
     );
