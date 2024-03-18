@@ -6,7 +6,7 @@ export enum GameState {
 }
 
 export enum GameLevel {
-    BEGINNER,
-    INTERMEDIATE,
-    EXPERT
+    BEGINNER = "Beginner",
+    INTERMEDIATE = "Intermediate",
+    EXPERT = "Expert"
 }

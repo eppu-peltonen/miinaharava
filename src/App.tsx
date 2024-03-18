@@ -11,13 +11,14 @@ const App = () => {
     const [gameLevel, setGameLevel] = useState(GameLevel.BEGINNER);
     const [flags, setFlags] = useState(10);
 
-    const startNewGame = () => {
+    const startNewGame = (level: GameLevel) => {
         setGameState(GameState.READY);
+        setGameLevel(level);
     }
 
     return (
         <main className="bg-minefield bg-center bg-cover">
-            <div className="container mx-auto h-screen flex">
+            <div className="h-screen flex">
                 <div className="m-auto bg-slate-700 rounded-xl flex flex-col p-6"> 
                     <Status
                         flags={flags}
@@ -25,6 +26,7 @@ const App = () => {
                         startNewGame={startNewGame}
                         time={time}
                         setTime={setTime}
+                        gameLevel={gameLevel}
                     />
                     <Board
                         gameState={gameState}

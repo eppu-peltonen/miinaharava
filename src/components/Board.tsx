@@ -3,6 +3,7 @@ import flagBlack from '../assets/flagBlack.svg';
 import mine from '../assets/mine.svg';
 import { GameState, GameLevel } from '../enum';
 import { Cell } from '../types';
+import { settings } from '../consts';
 
 type BoardProps = {
     gameState: GameState;
@@ -60,19 +61,9 @@ const Board = ({
         }, [gameState, rows, cols, setCells, setFlags, setCellsLeft, mineAmount]);
 
         useEffect(() => {
-            if (gameLevel === GameLevel.BEGINNER) {
-                setRows(9);
-                setCols(9);
-                setMineAmount(10);
-            } else if (gameLevel === GameLevel.INTERMEDIATE) {
-                setRows(16);
-                setCols(16);
-                setMineAmount(40);
-            } else {
-                setRows(16);
-                setCols(30);
-                setMineAmount(99);
-            }
+            setRows(settings.find(setting => setting.level === gameLevel)?.rows || 9);
+            setCols(settings.find(setting => setting.level === gameLevel)?.cols || 9);
+            setMineAmount(settings.find(setting => setting.level === gameLevel)?.mines || 10);
         }, [gameLevel]);
 
         const fillMines = (board: Cell[][]): Cell[][] => {
@@ -81,8 +72,8 @@ const Board = ({
             const mineBoard = board;
     
             while (mines > 0) {
-                const x = Math.floor(Math.random() * 9);
-                const y = Math.floor(Math.random() * 9);
+                const x = Math.floor(Math.random() * rows);
+                const y = Math.floor(Math.random() * cols);
     
                 if (!mineBoard[x][y].isMine){
                     mineBoard[x][y].isMine = true;
@@ -133,8 +124,8 @@ const Board = ({
 
         const newBoard = board;
 
-        for (let y = 0; y < 9; y++) {
-            for (let x = 0; x < 9; x++) {
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < cols; x++) {
                 if (newBoard[y][x].isMine) {
                     newBoard[y][x].isRevealed = true;
                 }
@@ -228,8 +219,13 @@ const Board = ({
         }
     }
 
-    return (    
-        <div className="grid grid-cols-9 grid-rows-9">
+    return (
+        <div className={
+            `grid
+            ${gameLevel === GameLevel.BEGINNER ? "grid-cols-9 grid-rows-9 w-[360px] h-[360px] m-auto"
+            : gameLevel === GameLevel.INTERMEDIATE ? "grid-cols-16 grid-rows-16"
+            : "grid-cols-30 grid-rows-16"}`}
+        >
             {cells.map((row) => {
                 return row.map((cell, x) => {
                     return (
@@ -259,7 +255,7 @@ const Board = ({
                                 </span>
                             }
                             {cell.isFlagged &&
-                                <img src={flagBlack} className="w-7 h-7 ml-1" alt="flag" />
+                                <img src={flagBlack} className="w-7 h-7" alt="flag" />
                             }
                         </button>
                     );
