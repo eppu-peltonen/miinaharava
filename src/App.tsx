@@ -19,7 +19,7 @@ const App = () => {
     return (
         <main className="bg-minefield bg-center bg-cover">
             <div className="h-screen flex">
-                <div className="m-auto bg-slate-700 rounded-xl flex flex-col p-6"> 
+                <div className="m-auto bg-slate-700 rounded-xl flex flex-col p-6">
                     <Status
                         flags={flags}
                         gameState={gameState}

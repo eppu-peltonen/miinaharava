@@ -2,6 +2,8 @@ import flagWhite from '../assets/flagWhite.svg';
 import Stopwatch from './Stopwatch';
 import { GameLevel } from '../enum';
 import { settings } from '../consts';
+import Tooltip from './Tooltip';
+import { helpText } from '../consts';
 
 type StatusProps = {
     flags: number;
@@ -41,6 +43,7 @@ const Status = ({flags, gameState, startNewGame, time, setTime}: StatusProps) =>
                 time={time}
                 setTime={setTime}
             />
+            <Tooltip text={helpText} />
         </div>
     )
 };
