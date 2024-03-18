@@ -17,10 +17,10 @@ const App = () => {
     }
 
     return (
-        <main className="bg-minefield bg-center bg-cover">
-            <div className="h-screen flex">
-                <div className="m-auto bg-slate-700 rounded-xl flex flex-col p-6">
-                    <Status
+        <main className="h-screen bg-minefield bg-center bg-cover">
+            <div className="flex flex-col h-screen">
+                <div className="mx-auto mt-10 flex flex-col p-6 bg-slate-700 rounded-xl">
+                <Status
                         flags={flags}
                         gameState={gameState}
                         startNewGame={startNewGame}
@@ -28,6 +28,8 @@ const App = () => {
                         setTime={setTime}
                         gameLevel={gameLevel}
                     />
+                </div>
+                <div className="mx-auto mt-10 bg-slate-700 rounded-xl flex flex-col p-6">  
                     <Board
                         gameState={gameState}
                         setGameState={setGameState}

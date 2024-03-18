@@ -21,22 +21,24 @@ const Status = ({flags, gameState, startNewGame, time, setTime}: StatusProps) =>
     }
 
     return (
-        <div className="flex flex-row mx-auto mb-6">
+        <div className="flex flex-row mx-auto">
             <div className="flex flex-row w-20 bg-slate-500 rounded-lg shadow-lg justify-center">
                 <img className="h-8 w-8" src={flagWhite} alt="flag" />
                 <span className="ml-2 text-xl text-white font-bold">{flags}</span>
             </div>
-            {settings.map((setting, index) => {
-                return (
-                    <button
-                        key={index}
-                        className={"bg-slate-500 px-2 mx-4 rounded-lg shadow-lg"}
-                        onClick={() => changeLevel(setting.level)}
-                    >
-                        <span className="text-white font-bold">{setting.level}</span>
-                    </button>
-                )
-            })}
+            <select className="mx-2 p-2 bg-slate-500 rounded-lg shadow-lg text-white font-bold">
+                {settings.map((setting, index) => {
+                    return (
+                        <option 
+                            key={index}
+                            value={setting.level}
+                            onClick={() => changeLevel(setting.level)}
+                        >
+                            {setting.level}
+                        </option>
+                    )
+                })}
+            </select>
             <Stopwatch
                 isRunning={gameState === 1}
                 gameReady={gameState === 0}
