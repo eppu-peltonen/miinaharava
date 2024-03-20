@@ -22,7 +22,7 @@ const Status = ({flags, gameState, startNewGame, time, setTime}: StatusProps) =>
 
     return (
         <div className="flex flex-row mx-auto">
-            <div className="flex flex-row w-20 bg-slate-500 rounded-lg shadow-lg justify-center">
+            <div className="flex flex-row w-20 bg-slate-500 rounded-lg shadow-lg justify-center pt-1">
                 <img className="h-8 w-8" src={flagWhite} alt="flag" />
                 <span className="ml-2 text-xl text-white font-bold">{flags}</span>
             </div>
